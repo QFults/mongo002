@@ -9,6 +9,10 @@ const Item = new Schema({
   isDone: {
     type: Boolean,
     required: true
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, { timestamps: true })
 

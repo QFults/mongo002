@@ -14,7 +14,11 @@ const User = new Schema({
     type: String,
     unique: true,
     required: true
-  }
+  },
+  items: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Item'
+  }]
 }, { timestamps: true })
 
 module.exports = model('User', User)
