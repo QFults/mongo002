@@ -22,7 +22,7 @@ axios.get('/api/users/items', {
   })
   .catch(err => {
     console.error(err)
-    window.location = '/auth.html'
+    // window.location = '/auth.html'
   })
 
   document.getElementById('addItem').addEventListener('click', event => {

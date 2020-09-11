@@ -3,7 +3,7 @@ const request = indexedDB.open('todo', 1)
 
 request.onupgradeneeded = event => {
   db = event.target.result
-  db.createObjectStore('pending')
+  db.createObjectStore('pending', { autoIncrement: true })
 }
 
 request.onsuccess = event => {
@@ -25,6 +25,7 @@ const saveItem = item => {
 }
 
 const checkDatabase = () => {
+  console.log('checking database')
   const transaction = db.transaction(['pending'], 'readwrite')
   const store = transaction.objectStore('pending')
   const getAll = store.getAll()
@@ -34,7 +35,8 @@ const checkDatabase = () => {
       fetch('/api/items/bulk', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('user')}`
         },
         body: JSON.stringify(getAll.result)
       })
