@@ -1,3 +1,9 @@
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+  })
+}
+
 
 axios.get('/api/users/items', {
   headers: {
@@ -39,11 +45,10 @@ axios.get('/api/users/items', {
       })
       .catch(err => {
         console.error(err)
-        Toastify({
-          text: 'Woops! Something went wrong. Try again.',
-          backgroundColor: 'red',
-          duration: 3000
-        }).showToast()
+        saveItem({
+          text: document.getElementById('item').value,
+          isDone: false
+        })
       })
   })
 
@@ -51,4 +56,3 @@ axios.get('/api/users/items', {
     localStorage.removeItem('user')
     window.location = '/auth.html'
   })
-  
